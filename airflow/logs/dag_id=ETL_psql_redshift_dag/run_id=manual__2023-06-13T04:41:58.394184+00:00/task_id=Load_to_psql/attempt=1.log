@@ -1,0 +1,28 @@
+[2023-06-13T11:42:30.152+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Load_to_psql manual__2023-06-13T04:41:58.394184+00:00 [queued]>
+[2023-06-13T11:42:30.158+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Load_to_psql manual__2023-06-13T04:41:58.394184+00:00 [queued]>
+[2023-06-13T11:42:30.158+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T11:42:30.158+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-13T11:42:30.158+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T11:42:30.164+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Load_to_psql> on 2023-06-13 04:41:58.394184+00:00
+[2023-06-13T11:42:30.166+0700] {standard_task_runner.py:55} INFO - Started process 22725 to run task
+[2023-06-13T11:42:30.168+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Load_to_psql', 'manual__2023-06-13T04:41:58.394184+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmpco9e9o9p']
+[2023-06-13T11:42:30.169+0700] {standard_task_runner.py:83} INFO - Job 84: Subtask Load_to_psql
+[2023-06-13T11:42:30.216+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Load_to_psql manual__2023-06-13T04:41:58.394184+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-13T11:42:30.269+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Load_to_psql
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-13T04:41:58.394184+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-13T04:41:58.394184+00:00
+[2023-06-13T11:42:40.620+0700] {logging_mixin.py:137} INFO - Successfully insert data to table Sale_schema.locations
+[2023-06-13T11:42:54.463+0700] {logging_mixin.py:137} INFO - Successfully insert data to table Sale_schema.customers
+[2023-06-13T11:44:14.066+0700] {logging_mixin.py:137} INFO - Successfully insert data to table Sale_schema.products
+[2023-06-13T11:45:05.254+0700] {logging_mixin.py:137} INFO - Successfully insert data to table Sale_schema.sales
+[2023-06-13T11:45:56.126+0700] {logging_mixin.py:137} INFO - Successfully insert data to table Sale_schema.shipments
+[2023-06-13T11:45:56.215+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-13T11:45:56.222+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Load_to_psql, execution_date=20230613T044158, start_date=20230613T044230, end_date=20230613T044556
+[2023-06-13T11:45:56.238+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-13T11:45:56.250+0700] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check

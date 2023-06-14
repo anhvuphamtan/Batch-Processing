@@ -1,0 +1,32 @@
+[2023-06-13T15:02:58.797+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema manual__2023-06-13T14:55:56.120360+00:00 [queued]>
+[2023-06-13T15:02:58.804+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema manual__2023-06-13T14:55:56.120360+00:00 [queued]>
+[2023-06-13T15:02:58.805+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T15:02:58.805+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-13T15:02:58.805+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T15:02:58.813+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Create_redshift_schema> on 2023-06-13 14:55:56.120360+00:00
+[2023-06-13T15:02:58.818+0000] {standard_task_runner.py:55} INFO - Started process 604 to run task
+[2023-06-13T15:02:58.822+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Create_redshift_schema', 'manual__2023-06-13T14:55:56.120360+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpjt_piut0']
+[2023-06-13T15:02:58.825+0000] {standard_task_runner.py:83} INFO - Job 28: Subtask Create_redshift_schema
+[2023-06-13T15:02:58.882+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema manual__2023-06-13T14:55:56.120360+00:00 [running]> on host 63f0fed3274d
+[2023-06-13T15:02:58.932+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Create_redshift_schema
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-13T14:55:56.120360+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-13T14:55:56.120360+00:00
+[2023-06-13T15:03:06.094+0000] {taskinstance.py:1768} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_redshift/Load_s3_to_redshift.py", line 25, in Create_redshift_schema
+    with open(path, 'r') as file :
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/postgreSQL_setup/redshift_setup/create_redshift_schema.sql'
+[2023-06-13T15:03:06.114+0000] {taskinstance.py:1323} INFO - Marking task as UP_FOR_RETRY. dag_id=ETL_psql_redshift_dag, task_id=Create_redshift_schema, execution_date=20230613T145556, start_date=20230613T150258, end_date=20230613T150306
+[2023-06-13T15:03:06.130+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 28 for task Create_redshift_schema ([Errno 2] No such file or directory: '/opt/airflow/postgreSQL_setup/redshift_setup/create_redshift_schema.sql'; 604)
+[2023-06-13T15:03:06.175+0000] {local_task_job.py:208} INFO - Task exited with return code 1
+[2023-06-13T15:03:06.195+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

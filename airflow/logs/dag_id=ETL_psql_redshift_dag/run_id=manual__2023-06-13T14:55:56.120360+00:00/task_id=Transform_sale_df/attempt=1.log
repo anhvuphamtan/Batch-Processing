@@ -1,0 +1,23 @@
+[2023-06-13T14:55:59.115+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df manual__2023-06-13T14:55:56.120360+00:00 [queued]>
+[2023-06-13T14:55:59.128+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df manual__2023-06-13T14:55:56.120360+00:00 [queued]>
+[2023-06-13T14:55:59.134+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T14:55:59.134+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-13T14:55:59.135+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T14:55:59.151+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Transform_sale_df> on 2023-06-13 14:55:56.120360+00:00
+[2023-06-13T14:55:59.161+0000] {standard_task_runner.py:55} INFO - Started process 477 to run task
+[2023-06-13T14:55:59.168+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Transform_sale_df', 'manual__2023-06-13T14:55:56.120360+00:00', '--job-id', '24', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpeznj0is9']
+[2023-06-13T14:55:59.185+0000] {standard_task_runner.py:83} INFO - Job 24: Subtask Transform_sale_df
+[2023-06-13T14:55:59.319+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df manual__2023-06-13T14:55:56.120360+00:00 [running]> on host 63f0fed3274d
+[2023-06-13T14:55:59.458+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Transform_sale_df
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-13T14:55:56.120360+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-13T14:55:56.120360+00:00
+[2023-06-13T14:56:14.149+0000] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-13T14:56:14.161+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Transform_sale_df, execution_date=20230613T145556, start_date=20230613T145559, end_date=20230613T145614
+[2023-06-13T14:56:14.243+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-13T14:56:14.266+0000] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check

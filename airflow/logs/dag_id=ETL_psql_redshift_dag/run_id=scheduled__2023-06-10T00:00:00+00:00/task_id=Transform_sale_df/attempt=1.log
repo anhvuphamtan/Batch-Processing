@@ -1,0 +1,46 @@
+[2023-06-12T18:02:07.644+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:02:07.649+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:02:07.649+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:02:07.649+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-12T18:02:07.649+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:02:07.655+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Transform_sale_df> on 2023-06-10 00:00:00+00:00
+[2023-06-12T18:02:07.658+0700] {standard_task_runner.py:55} INFO - Started process 12985 to run task
+[2023-06-12T18:02:07.660+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Transform_sale_df', 'scheduled__2023-06-10T00:00:00+00:00', '--job-id', '26', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmpzkl3x1ml']
+[2023-06-12T18:02:07.661+0700] {standard_task_runner.py:83} INFO - Job 26: Subtask Transform_sale_df
+[2023-06-12T18:02:07.712+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:02:07.762+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Transform_sale_df
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-10T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-10T00:00:00+00:00
+[2023-06-12T18:02:16.317+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-12T18:02:16.329+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Transform_sale_df, execution_date=20230610T000000, start_date=20230612T110207, end_date=20230612T110216
+[2023-06-12T18:02:16.382+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-12T18:02:16.399+0700] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-06-12T18:15:22.575+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:15:22.581+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:15:22.581+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:15:22.581+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-12T18:15:22.581+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:15:22.587+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Transform_sale_df> on 2023-06-10 00:00:00+00:00
+[2023-06-12T18:15:22.590+0700] {standard_task_runner.py:55} INFO - Started process 15332 to run task
+[2023-06-12T18:15:22.592+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Transform_sale_df', 'scheduled__2023-06-10T00:00:00+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmp84_en_v8']
+[2023-06-12T18:15:22.593+0700] {standard_task_runner.py:83} INFO - Job 46: Subtask Transform_sale_df
+[2023-06-12T18:15:22.639+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Transform_sale_df scheduled__2023-06-10T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:15:22.692+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Transform_sale_df
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-10T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-10T00:00:00+00:00
+[2023-06-12T18:15:31.395+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-12T18:15:31.406+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Transform_sale_df, execution_date=20230610T000000, start_date=20230612T111522, end_date=20230612T111531
+[2023-06-12T18:15:31.420+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-12T18:15:31.448+0700] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

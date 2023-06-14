@@ -1,0 +1,52 @@
+[2023-06-14T09:10:56.691+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_location_df scheduled__2023-06-13T00:00:00+00:00 [queued]>
+[2023-06-14T09:10:56.709+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Transform_location_df scheduled__2023-06-13T00:00:00+00:00 [queued]>
+[2023-06-14T09:10:56.713+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T09:10:56.725+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-14T09:10:56.732+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T09:10:56.765+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Transform_location_df> on 2023-06-13 00:00:00+00:00
+[2023-06-14T09:10:56.797+0000] {standard_task_runner.py:55} INFO - Started process 315 to run task
+[2023-06-14T09:10:56.806+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Transform_location_df', 'scheduled__2023-06-13T00:00:00+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpb7jkmra2']
+[2023-06-14T09:10:56.858+0000] {standard_task_runner.py:83} INFO - Job 9: Subtask Transform_location_df
+[2023-06-14T09:10:57.102+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Transform_location_df scheduled__2023-06-13T00:00:00+00:00 [running]> on host f2da7a3b6ffa
+[2023-06-14T09:10:57.228+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Transform_location_df
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-13T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-13T00:00:00+00:00
+[2023-06-14T09:10:58.922+0000] {taskinstance.py:1768} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ETL_psql/Transform/Transform_locations.py", line 38, in Transform_locations
+    location = Transform_location_df(Name, filePath);
+  File "/opt/airflow/dags/ETL_psql/Transform/Transform.py", line 21, in __init__
+    self.extra_var();
+  File "/opt/airflow/dags/ETL_psql/Transform/Transform_locations.py", line 12, in extra_var
+    shipment_df = pd.read_csv(filePath);
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 586, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 488, in _read
+    return parser.read(nrows)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 1047, in read
+    index, columns, col_dict = self._engine.read(nrows)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 224, in read
+    chunks = self._reader.read_low_memory(nrows)
+  File "pandas/_libs/parsers.pyx", line 801, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 857, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 843, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 1925, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 8 fields in line 31822, saw 9
+
+[2023-06-14T09:10:58.964+0000] {taskinstance.py:1323} INFO - Marking task as UP_FOR_RETRY. dag_id=ETL_psql_redshift_dag, task_id=Transform_location_df, execution_date=20230613T000000, start_date=20230614T091056, end_date=20230614T091058
+[2023-06-14T09:10:58.995+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 9 for task Transform_location_df (Error tokenizing data. C error: Expected 8 fields in line 31822, saw 9
+; 315)
+[2023-06-14T09:10:59.075+0000] {local_task_job.py:208} INFO - Task exited with return code 1
+[2023-06-14T09:10:59.122+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

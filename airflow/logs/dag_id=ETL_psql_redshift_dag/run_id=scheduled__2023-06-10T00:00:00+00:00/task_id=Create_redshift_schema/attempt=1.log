@@ -1,0 +1,72 @@
+[2023-06-12T18:00:26.552+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:00:26.605+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:00:26.605+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:00:26.605+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-12T18:00:26.605+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:00:26.628+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Create_redshift_schema> on 2023-06-10 00:00:00+00:00
+[2023-06-12T18:00:26.632+0700] {standard_task_runner.py:55} INFO - Started process 12533 to run task
+[2023-06-12T18:00:26.643+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Create_redshift_schema', 'scheduled__2023-06-10T00:00:00+00:00', '--job-id', '17', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmp76tuk2ra']
+[2023-06-12T18:00:26.644+0700] {standard_task_runner.py:83} INFO - Job 17: Subtask Create_redshift_schema
+[2023-06-12T18:00:26.840+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:00:26.872+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Create_redshift_schema
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-10T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-10T00:00:00+00:00
+[2023-06-12T18:00:30.031+0700] {logging_mixin.py:137} INFO - Create redshift schema successfully
+[2023-06-12T18:00:30.031+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-12T18:00:30.042+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Create_redshift_schema, execution_date=20230610T000000, start_date=20230612T110026, end_date=20230612T110030
+[2023-06-12T18:00:30.072+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-12T18:00:30.089+0700] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-06-12T18:07:01.754+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:07:01.760+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:07:01.760+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:07:01.760+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-12T18:07:01.760+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:07:01.766+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Create_redshift_schema> on 2023-06-10 00:00:00+00:00
+[2023-06-12T18:07:01.773+0700] {standard_task_runner.py:55} INFO - Started process 14002 to run task
+[2023-06-12T18:07:01.776+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Create_redshift_schema', 'scheduled__2023-06-10T00:00:00+00:00', '--job-id', '36', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmp2atklmus']
+[2023-06-12T18:07:01.777+0700] {standard_task_runner.py:83} INFO - Job 36: Subtask Create_redshift_schema
+[2023-06-12T18:07:01.829+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:07:01.877+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Create_redshift_schema
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-10T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-10T00:00:00+00:00
+[2023-06-12T18:07:05.064+0700] {logging_mixin.py:137} INFO - Create redshift schema successfully
+[2023-06-12T18:07:05.065+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-12T18:07:05.081+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Create_redshift_schema, execution_date=20230610T000000, start_date=20230612T110701, end_date=20230612T110705
+[2023-06-12T18:07:05.101+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-12T18:07:05.130+0700] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2023-06-12T18:20:30.219+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:20:30.225+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [queued]>
+[2023-06-12T18:20:30.225+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:20:30.225+0700] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-12T18:20:30.225+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:20:30.232+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Create_redshift_schema> on 2023-06-10 00:00:00+00:00
+[2023-06-12T18:20:30.234+0700] {standard_task_runner.py:55} INFO - Started process 16449 to run task
+[2023-06-12T18:20:30.237+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Create_redshift_schema', 'scheduled__2023-06-10T00:00:00+00:00', '--job-id', '61', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmp88lt_371']
+[2023-06-12T18:20:30.238+0700] {standard_task_runner.py:83} INFO - Job 61: Subtask Create_redshift_schema
+[2023-06-12T18:20:30.285+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Create_redshift_schema scheduled__2023-06-10T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:20:30.331+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Create_redshift_schema
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-10T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-10T00:00:00+00:00
+[2023-06-12T18:20:33.504+0700] {logging_mixin.py:137} INFO - Create redshift schema successfully
+[2023-06-12T18:20:33.505+0700] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-12T18:20:33.523+0700] {taskinstance.py:1318} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Create_redshift_schema, execution_date=20230610T000000, start_date=20230612T112030, end_date=20230612T112033
+[2023-06-12T18:20:33.542+0700] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-12T18:20:33.605+0700] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check

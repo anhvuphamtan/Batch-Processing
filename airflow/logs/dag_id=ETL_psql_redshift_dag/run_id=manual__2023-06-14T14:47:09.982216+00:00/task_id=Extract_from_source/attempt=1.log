@@ -1,0 +1,23 @@
+[2023-06-14T14:47:11.814+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Extract_from_source manual__2023-06-14T14:47:09.982216+00:00 [queued]>
+[2023-06-14T14:47:11.820+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Extract_from_source manual__2023-06-14T14:47:09.982216+00:00 [queued]>
+[2023-06-14T14:47:11.821+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T14:47:11.821+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-14T14:47:11.822+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T14:47:11.829+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Extract_from_source> on 2023-06-14 14:47:09.982216+00:00
+[2023-06-14T14:47:11.834+0000] {standard_task_runner.py:55} INFO - Started process 1874 to run task
+[2023-06-14T14:47:11.838+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Extract_from_source', 'manual__2023-06-14T14:47:09.982216+00:00', '--job-id', '34', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpb1m4l8sz']
+[2023-06-14T14:47:11.840+0000] {standard_task_runner.py:83} INFO - Job 34: Subtask Extract_from_source
+[2023-06-14T14:47:11.893+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Extract_from_source manual__2023-06-14T14:47:09.982216+00:00 [running]> on host 3d4df578486c
+[2023-06-14T14:47:11.944+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Extract_from_source
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-14T14:47:09.982216+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-14T14:47:09.982216+00:00
+[2023-06-14T14:47:36.042+0000] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-14T14:47:36.071+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Extract_from_source, execution_date=20230614T144709, start_date=20230614T144711, end_date=20230614T144736
+[2023-06-14T14:47:36.119+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-14T14:47:36.141+0000] {taskinstance.py:2578} INFO - 5 downstream tasks scheduled from follow-on schedule check

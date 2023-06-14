@@ -1,0 +1,35 @@
+[2023-06-14T13:03:08.142+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.ETL_s3 manual__2023-06-14T12:57:33.382865+00:00 [queued]>
+[2023-06-14T13:03:08.148+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.ETL_s3 manual__2023-06-14T12:57:33.382865+00:00 [queued]>
+[2023-06-14T13:03:08.149+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T13:03:08.149+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-14T13:03:08.150+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-14T13:03:08.156+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): ETL_s3> on 2023-06-14 12:57:33.382865+00:00
+[2023-06-14T13:03:08.161+0000] {standard_task_runner.py:55} INFO - Started process 684 to run task
+[2023-06-14T13:03:08.165+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'ETL_s3', 'manual__2023-06-14T12:57:33.382865+00:00', '--job-id', '30', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpkjmqhjd2']
+[2023-06-14T13:03:08.167+0000] {standard_task_runner.py:83} INFO - Job 30: Subtask ETL_s3
+[2023-06-14T13:03:08.222+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.ETL_s3 manual__2023-06-14T12:57:33.382865+00:00 [running]> on host 3d4df578486c
+[2023-06-14T13:03:08.272+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=ETL_s3
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-14T12:57:33.382865+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-14T12:57:33.382865+00:00
+[2023-06-14T13:03:15.232+0000] {logging_mixin.py:137} INFO - Loading products to s3
+[2023-06-14T13:03:23.974+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:23.977+0000] {logging_mixin.py:137} INFO - Loading sales to s3
+[2023-06-14T13:03:30.058+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:30.062+0000] {logging_mixin.py:137} INFO - Loading customers to s3
+[2023-06-14T13:03:30.903+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:30.905+0000] {logging_mixin.py:137} INFO - Loading shipments to s3
+[2023-06-14T13:03:34.301+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:34.307+0000] {logging_mixin.py:137} INFO - Loading locations to s3
+[2023-06-14T13:03:36.924+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:36.926+0000] {logging_mixin.py:137} INFO - Loading time to s3
+[2023-06-14T13:03:37.025+0000] {logging_mixin.py:137} INFO - Load successfully
+[2023-06-14T13:03:37.493+0000] {python.py:177} INFO - Done. Returned value was: None
+[2023-06-14T13:03:37.520+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=ETL_s3, execution_date=20230614T125733, start_date=20230614T130308, end_date=20230614T130337
+[2023-06-14T13:03:37.971+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-14T13:03:38.009+0000] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check

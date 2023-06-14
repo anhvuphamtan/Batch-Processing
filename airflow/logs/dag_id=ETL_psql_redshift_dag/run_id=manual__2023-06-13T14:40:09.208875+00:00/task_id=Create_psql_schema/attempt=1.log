@@ -1,0 +1,192 @@
+[2023-06-13T14:40:10.223+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_psql_schema manual__2023-06-13T14:40:09.208875+00:00 [queued]>
+[2023-06-13T14:40:10.228+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Create_psql_schema manual__2023-06-13T14:40:09.208875+00:00 [queued]>
+[2023-06-13T14:40:10.229+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T14:40:10.229+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 3
+[2023-06-13T14:40:10.230+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-13T14:40:10.236+0000] {taskinstance.py:1300} INFO - Executing <Task(PostgresOperator): Create_psql_schema> on 2023-06-13 14:40:09.208875+00:00
+[2023-06-13T14:40:10.241+0000] {standard_task_runner.py:55} INFO - Started process 213 to run task
+[2023-06-13T14:40:10.244+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Create_psql_schema', 'manual__2023-06-13T14:40:09.208875+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/tmp/tmpq6rvur3v']
+[2023-06-13T14:40:10.246+0000] {standard_task_runner.py:83} INFO - Job 2: Subtask Create_psql_schema
+[2023-06-13T14:40:10.294+0000] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Create_psql_schema manual__2023-06-13T14:40:09.208875+00:00 [running]> on host 63f0fed3274d
+[2023-06-13T14:40:10.339+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Create_psql_schema
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-13T14:40:09.208875+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-06-13T14:40:09.208875+00:00
+[2023-06-13T14:40:10.340+0000] {sql.py:254} INFO - Executing: -- Create Schema `Sale_schema` for postgreSQL database
+
+DROP SCHEMA IF EXISTS Sale_schema CASCADE;
+
+CREATE SCHEMA Sale_schema;
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Sales (
+    Order_ID VARCHAR(255) PRIMARY KEY,
+    Order_date Date,
+    Product_ID BIGINT,
+    Style VARCHAR(45),
+    Size VARCHAR(45),
+    Quantity INT,
+    Payment_method VARCHAR(255),
+    Total_cost DECIMAL,
+    Profit DECIMAL,
+    Customer_ID VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Products (
+    Product_ID BIGINT PRIMARY KEY,
+    Product_name VARCHAR(255),
+    SKU INT,
+    Brand VARCHAR(255),
+    Category VARCHAR(255),
+    Product_size DECIMAL,
+    Sell_price DECIMAL,
+    Commision_rate DECIMAL,
+    Commision DECIMAL
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Customers (
+    Customer_ID VARCHAR(255) PRIMARY KEY,
+    Name VARCHAR(255),
+    Phone VARCHAR(255),
+    Age INT,
+    Address VARCHAR(255),
+    Postal_code INT
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Shipments (
+    Shipment_ID VARCHAR(255) PRIMARY KEY,
+    Order_ID VARCHAR(255),
+    Shipping_date Date,
+    Shipping_mode VARCHAR(255),
+    Shipping_address VARCHAR(255),
+    Shipping_status VARCHAR(255),
+    Shipping_company VARCHAR(255),
+    Shipping_cost DECIMAL,
+    Shipping_zipcode INT
+);
+
+CREATE TABLE Sale_schema.Locations (
+    Postal_code INT PRIMARY KEY,
+    City VARCHAR(45),
+    State VARCHAR(45),
+    Country VARCHAR(45)
+);
+
+ALTER TABLE Sale_schema.Sales
+ADD CONSTRAINT fk_sale_product_prodID FOREIGN KEY (Product_ID)
+REFERENCES Sale_schema.Products (Product_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE Sale_schema.Sales
+ADD CONSTRAINT fk_sale_customer_custID FOREIGN KEY (Customer_ID)
+REFERENCES Sale_schema.Customers (Customer_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Shipments
+ADD CONSTRAINT fk_shipment_sale_orderID FOREIGN KEY (Order_ID)
+REFERENCES Sale_schema.Sales (Order_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Shipments
+ADD CONSTRAINT fk_shipment_location_zipcode FOREIGN KEY (Shipping_zipcode)
+REFERENCES Sale_schema.Locations (Postal_code)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Customers
+ADD CONSTRAINT fk_customer_location_postcode FOREIGN KEY (Postal_code)
+REFERENCES Sale_schema.Locations (Postal_code)
+ON DELETE CASCADE ON UPDATE CASCADE;
+[2023-06-13T14:40:10.348+0000] {base.py:73} INFO - Using connection ID 'postgres_sale_db' for task execution.
+[2023-06-13T14:40:10.446+0000] {base.py:73} INFO - Using connection ID 'postgres_sale_db' for task execution.
+[2023-06-13T14:40:10.450+0000] {sql.py:375} INFO - Running statement: -- Create Schema `Sale_schema` for postgreSQL database
+
+DROP SCHEMA IF EXISTS Sale_schema CASCADE;
+
+CREATE SCHEMA Sale_schema;
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Sales (
+    Order_ID VARCHAR(255) PRIMARY KEY,
+    Order_date Date,
+    Product_ID BIGINT,
+    Style VARCHAR(45),
+    Size VARCHAR(45),
+    Quantity INT,
+    Payment_method VARCHAR(255),
+    Total_cost DECIMAL,
+    Profit DECIMAL,
+    Customer_ID VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Products (
+    Product_ID BIGINT PRIMARY KEY,
+    Product_name VARCHAR(255),
+    SKU INT,
+    Brand VARCHAR(255),
+    Category VARCHAR(255),
+    Product_size DECIMAL,
+    Sell_price DECIMAL,
+    Commision_rate DECIMAL,
+    Commision DECIMAL
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Customers (
+    Customer_ID VARCHAR(255) PRIMARY KEY,
+    Name VARCHAR(255),
+    Phone VARCHAR(255),
+    Age INT,
+    Address VARCHAR(255),
+    Postal_code INT
+);
+
+CREATE TABLE IF NOT EXISTS Sale_schema.Shipments (
+    Shipment_ID VARCHAR(255) PRIMARY KEY,
+    Order_ID VARCHAR(255),
+    Shipping_date Date,
+    Shipping_mode VARCHAR(255),
+    Shipping_address VARCHAR(255),
+    Shipping_status VARCHAR(255),
+    Shipping_company VARCHAR(255),
+    Shipping_cost DECIMAL,
+    Shipping_zipcode INT
+);
+
+CREATE TABLE Sale_schema.Locations (
+    Postal_code INT PRIMARY KEY,
+    City VARCHAR(45),
+    State VARCHAR(45),
+    Country VARCHAR(45)
+);
+
+ALTER TABLE Sale_schema.Sales
+ADD CONSTRAINT fk_sale_product_prodID FOREIGN KEY (Product_ID)
+REFERENCES Sale_schema.Products (Product_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE Sale_schema.Sales
+ADD CONSTRAINT fk_sale_customer_custID FOREIGN KEY (Customer_ID)
+REFERENCES Sale_schema.Customers (Customer_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Shipments
+ADD CONSTRAINT fk_shipment_sale_orderID FOREIGN KEY (Order_ID)
+REFERENCES Sale_schema.Sales (Order_ID)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Shipments
+ADD CONSTRAINT fk_shipment_location_zipcode FOREIGN KEY (Shipping_zipcode)
+REFERENCES Sale_schema.Locations (Postal_code)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Sale_schema.Customers
+ADD CONSTRAINT fk_customer_location_postcode FOREIGN KEY (Postal_code)
+REFERENCES Sale_schema.Locations (Postal_code)
+ON DELETE CASCADE ON UPDATE CASCADE;, parameters: None
+[2023-06-13T14:40:10.474+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=ETL_psql_redshift_dag, task_id=Create_psql_schema, execution_date=20230613T144009, start_date=20230613T144010, end_date=20230613T144010
+[2023-06-13T14:40:10.498+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-06-13T14:40:10.518+0000] {taskinstance.py:2578} INFO - 5 downstream tasks scheduled from follow-on schedule check

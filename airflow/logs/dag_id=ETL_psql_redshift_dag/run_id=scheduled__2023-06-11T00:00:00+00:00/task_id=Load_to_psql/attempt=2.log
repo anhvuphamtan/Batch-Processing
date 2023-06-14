@@ -1,0 +1,38 @@
+[2023-06-12T18:08:34.011+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Load_to_psql scheduled__2023-06-11T00:00:00+00:00 [queued]>
+[2023-06-12T18:08:34.015+0700] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: ETL_psql_redshift_dag.Load_to_psql scheduled__2023-06-11T00:00:00+00:00 [queued]>
+[2023-06-12T18:08:34.015+0700] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:08:34.015+0700] {taskinstance.py:1280} INFO - Starting attempt 2 of 3
+[2023-06-12T18:08:34.015+0700] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-06-12T18:08:34.021+0700] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): Load_to_psql> on 2023-06-11 00:00:00+00:00
+[2023-06-12T18:08:34.022+0700] {standard_task_runner.py:55} INFO - Started process 14244 to run task
+[2023-06-12T18:08:34.025+0700] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'ETL_psql_redshift_dag', 'Load_to_psql', 'scheduled__2023-06-11T00:00:00+00:00', '--job-id', '38', '--raw', '--subdir', 'DAGS_FOLDER/dags_setup.py', '--cfg-path', '/var/folders/13/nw165ws91y30x7r8_6b34m_m0000gn/T/tmpc79qxxep']
+[2023-06-12T18:08:34.026+0700] {standard_task_runner.py:83} INFO - Job 38: Subtask Load_to_psql
+[2023-06-12T18:08:34.080+0700] {task_command.py:388} INFO - Running <TaskInstance: ETL_psql_redshift_dag.Load_to_psql scheduled__2023-06-11T00:00:00+00:00 [running]> on host vus-macbook-pro.local
+[2023-06-12T18:08:34.133+0700] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vupham
+AIRFLOW_CTX_DAG_ID=ETL_psql_redshift_dag
+AIRFLOW_CTX_TASK_ID=Load_to_psql
+AIRFLOW_CTX_EXECUTION_DATE=2023-06-11T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=2
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2023-06-11T00:00:00+00:00
+[2023-06-12T18:08:34.189+0700] {taskinstance.py:1768} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/opt/homebrew/lib/python3.10/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/opt/homebrew/lib/python3.10/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/Users/vupham/Desktop/DE_Project/dags/ETL_psql/Load/Load_psql.py", line 53, in Load_schema
+    Load_table(f"Sale_schema.{table}", df, cur);
+  File "/Users/vupham/Desktop/DE_Project/dags/ETL_psql/Load/Load_psql.py", line 23, in Load_table
+    cur.executemany(query, records);
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "locations_pkey"
+DETAIL:  Key (postal_code)=(39980) already exists.
+
+[2023-06-12T18:08:34.200+0700] {taskinstance.py:1318} INFO - Marking task as UP_FOR_RETRY. dag_id=ETL_psql_redshift_dag, task_id=Load_to_psql, execution_date=20230611T000000, start_date=20230612T110834, end_date=20230612T110834
+[2023-06-12T18:08:34.209+0700] {standard_task_runner.py:100} ERROR - Failed to execute job 38 for task Load_to_psql (duplicate key value violates unique constraint "locations_pkey"
+DETAIL:  Key (postal_code)=(39980) already exists.
+; 14244)
+[2023-06-12T18:08:34.221+0700] {local_task_job.py:208} INFO - Task exited with return code 1
+[2023-06-12T18:08:34.241+0700] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check
