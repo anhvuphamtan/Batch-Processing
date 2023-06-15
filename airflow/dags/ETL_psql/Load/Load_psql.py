@@ -3,8 +3,6 @@ import psycopg2
 import time
 import os 
 
-#sys.path.insert(0, os.getcwd());
-
 def Load_table(table_name, df, cur) : # Load dataframe 'df' with name 'table_name' to postgreSQL db
         # Convert to correct data type for each column
         df = df.convert_dtypes();
