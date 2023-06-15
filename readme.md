@@ -60,7 +60,7 @@ make infra-up # Build cloud infrastructure
 
 ## 5. Implementation detail
 
-### Refer to Implementation detail.md for more details on implementation
+### Refer to [Implementation detail.md](/Implementation%20detail.md) for more details on implementation
 
 ### 5.1 Load sales data into PostgreSQL database
 
