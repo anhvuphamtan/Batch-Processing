@@ -40,6 +40,7 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 - Terraform 
 - AWS account (if you wish to build your own cloud infrastructure, please go to terraform/* and modify)
 
+Refer to Makefile for more details
 ```
 # Clone and cd into the project directory
 git clone https://github.com/anhvuphamtan/Batch-Processing.git
@@ -58,6 +59,9 @@ make infra-up # Build cloud infrastructure
 ```
 
 ## 5. Implementation detail
+
+### Refer to Implementation detail.md for more details on implementation
+
 ### 5.1 Load sales data into PostgreSQL database
 
 <img src=assets/ETL_psql.png alt="ETL psql" height="400">
@@ -110,10 +114,10 @@ make infra-up # Build cloud infrastructure
  
 <b> 1. Create_psql_schema : </b> Create PostgreSQL schema and its tables according to our data model design.
 ``` ./postgreSQL_setup/create_pgsql_schema.sql ```
-
+<br> <br>
 <b> 2. Extract_from_source : </b> Extract raw data from s3 bucket and store them in <i> Input_data </i> folder.
 ```./airflow/dags/ETL_psql/Extract.py -> Extract_from_source()```
-
+<br> <br>
 <b> 3. Perform transformation : </b> This part split into 5 small tasks, each handle the data transformation on a specific topic.
 There are 6 python files : <i> Transform.py </i>, <i> Transform_***.py </i> where *** correspond to a topic ['sales', 'products', 'customers', 'shipments', 'locations'].
 Each <i> Transform_***.py </i> responsible for cleaning, transforming and integrating to a corresponding OLTP table. Python class is used,
@@ -157,29 +161,29 @@ class Transform_df : # Parent class for transformation of dataframe
 
 ```
 <br>
-<b> <i> Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
+<b> <i> a. Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
 
 - Initially there is no csv file for locations, this class is generated from 'Customers.csv' and 'Shipments.csv' to store data
 about locations by extracting customer and shipping addresses, merge them into a new dataframe. By doing this, we could reduce
 dimensions in both 'customer' and 'shipment' dataframe, have better relationship as well.
 
-<b> <i> Transform_customers.py </i> -> <i> Transform_customers class </i> </b>
+<b> <i> b. Transform_customers.py </i> -> <i> Transform_customers class </i> </b>
 
 - Drop columns ['City', 'State', 'Country']
 
-<b> <i> Transform_shipments.py </i> -> <i> Transform_shipments class </i> </b>
+<b> <i> c. Transform_shipments.py </i> -> <i> Transform_shipments class </i> </b>
 
 - Create new columns 'Shipping address' and 'Shipping zipcode' from original column 'Destination'.
 - Convert column 'Shipping status' to lowercase letters 
 - Drop duplicate values in column 'Order ID', since each 'Order ID' can belong exactly to one 'Shipment ID' only.
 - Drop columns 'Destination'
 
-<b> <i> Transform_products.py </i> -> <i> Transform_products class </i> </b>
+<b> <i> d. Transform_products.py </i> -> <i> Transform_products class </i> </b>
 
 - Fill null value in column "BRAND" with "unknown".
 - Create new column 'COMMISION' which is the profit gained by selling the product.
 
-<b> <i> Transform_sales.py </i> -> <i> Transform_sales class </i> </b>
+<b> <i> e. Transform_sales.py </i> -> <i> Transform_sales class </i> </b>
 
 - Covert to datetime format for column 'Date'
 - Re-calculate column 'Total cost' which is the total cost of each 'Order ID' (there is quite a lot of inconsistent between 
@@ -189,11 +193,11 @@ table 'Products' and 'Sales') by using binary search function ```search_product(
     - For each 'Product ID' in an 'Order ID' in 'Sales' dataframe, perform binary search to retrieve 'Product sell price' & 'Product commision rate'
 - The value 'Product commision rate' is also used to create new column 'Total Profit'.
 
-<b> <i> Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema.
+<b> <i> f. Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema.
  
-<br>
+<br> <br>
 <b> 4. Load_to_psql : </b> Load all transformed data into PostgreSQL database.
-<br>
+<br> <br>
  ```python
 # ./airflow/dags/ETL_psql/Load/Load_psql.py
 def Load_schema() :
@@ -211,12 +215,12 @@ def Load_schema() :
         Load_table(f"Sale_schema.{table}", df, cur);     
     
     ...
-  ```
+```
 
 Since there is foreign key constraints, the table must be loaded in order ['locations'->'customers'->'products'->'sales'->'shipments'].
 Psycopg2 library is used to establish connection to PostgreSQL database "airflow", each table is loaded using function ```Load_table(table_name, df, cur)```
 that loads dynamically any dataframe 'df' to table 'table_name'.
-
+<br> <br>
 ### 5.2 Load data from PostgreSQL to Amazon Redshift :
 <img src=assets/ETL_redshift.png alt="ETL redshift" height="400">
 
@@ -240,7 +244,7 @@ that loads dynamically any dataframe 'df' to table 'table_name'.
         python_callable = Load_s3_to_redshift
     )
 ```
-  
+<br> <br>
 <b> 1. ETL_psql_s3 : </b> Extract data from PostgreSQL database, perform transformation, and load to S3 bucket
   
 ```./airflow/dags/ETL_redshift/ETL_psql_s3.py -> ETL_s3() ```
@@ -254,19 +258,19 @@ that loads dynamically any dataframe 'df' to table 'table_name'.
 ```Load_s3(df_dict)``` Load all dataframes to S3 bucket.
   
  
-  
+<br> <br>
 <b> 2. Create_redshift_schema : </b> Create redshift schema
 ```./airflow/dags/redshift_setup/create_redshift_schema.sql```
 ```./ETL_redshift/Load_s3_to_redshift.py -> Establish_redshift_connection & Create_redshift_schema() ```
   
 Establish redshift connection using <b> redshift_connector </b> library, redshift schema will be created using redshift_connector
-
+<br> <br>
 <b> 3. Load_s3_redshift : </b> Load data from S3 bucket to Redshift
 ```./ETL_redshift/Load_s3_to_redshift.py -> Load_s3_to_redshift() ```
 
 Load each table from S3 bucket to redshift using COPY command.
   
-
+<br> <br>
 # 6. Visualize result :
 
 Connect redshift to metabase and visualize result
