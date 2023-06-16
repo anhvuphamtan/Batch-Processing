@@ -422,8 +422,11 @@ Load each table from S3 bucket to redshift using COPY command.
 <br> <br>
 # 6. Visualize result :
 
-Connect redshift to metabase and visualize result
+Connect redshift to metabase and visualize results
 
+<img src="assets/metabase.png" alt="metabase">
+  
+<b> Results </b>
 
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Revenue%20by%20month.png alt="Revenue by month" height="500">
