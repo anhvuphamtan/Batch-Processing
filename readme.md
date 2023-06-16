@@ -181,9 +181,11 @@ services:
     ports:
       - "3000:3000"
 ```
-<br> <br>
 
-<img src="/assets/docker_containers.png" alt="docker_containers" height="500">
+<b> Docker containers </b>
+<img src="/assets/docker_containers.png" alt="docker_containers">
+
+<br>
 
 ### Running 
 
