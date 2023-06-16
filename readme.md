@@ -33,28 +33,28 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 </div>
 
 
-## 4. Running 
+## 4. Setting :
 
 ### Prerequisites
-- Docker
-- Terraform 
-- AWS account (if you wish to build your own cloud infrastructure, please go to terraform/* and modify)
+- AWS account 
+- Terraform
+- Docker 
 
 ### AWS Infrastructure 
 
-<img src="/assets/Redshift_diagram.png" alt="Redshift diagram" height="500">
+<img src="/assets/Redshift%20diagram.png" alt="Redshift diagram" height="500">
 
-- 2 <b> dc2.large </b> type nodes for Redshift cluster
+- Two <b> dc2.large </b> type nodes for Redshift cluster
 - Redshift cluster type : multi-node
-- <i> Redshift cluster is put inside a VPC (10.10.0.0/16), redshift subnet group consists of 2 subnets "Subnet for redshift az 1"(10.10.0.0/24) and "Subnet for redshift az 2" (10.01.1.0/24), each subnet is put in an Availability zone. </i>
+- Redshift cluster is put inside a VPC <i> (10.10.0.0/16) </i>, redshift subnet group consists of 2 subnets <i> "Subnet for redshift az 1"(10.10.0.0/24) </i> and <i> "Subnet for redshift az 2" (10.01.1.0/24) </i>, each subnet is put in an Availability zone.
 
--   <i> These two subnets associate with a public route table (outbound traffic to the public internet through the Internet Gateway). </i>
+- These two subnets associate with a public route table (outbound traffic to the public internet through the Internet Gateway).
  
-- <i> Redshift security group allows all inbound traffic from port 5439. </i>
+- Redshift security group allows all inbound traffic from port 5439. 
 
-- <i> Finally, IAM role is created for Redshift with full S3 Access. </i>
+- Finally, IAM role is created for Redshift with full S3 Access. 
 
-- <i> Create redshift cluster </i>
+- Create redshift cluster.
 
 ```python
 resource "aws_redshift_cluster" "sale_redshift_cluster" {
@@ -77,7 +77,117 @@ resource "aws_redshift_cluster" "sale_redshift_cluster" {
 }
 ```
 
-Refer to Makefile for more details
+### Docker 
+```Python
+# ./docker/Dockerfile
+FROM apache/airflow:2.5.1
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt 
+
+```
+
+<b> Dockerfile </b> build a custom images with <i> apache-airflow:2.5.1 and libraries in 'requirements.txt' </i>
+
+```python
+# ./docker/requirements.txt
+redshift_connector
+pandas
+apache-airflow-providers-amazon==8.1.0
+apache-airflow-providers-postgres==5.4.0
+boto3==1.26.148
+psycopg2-binary==2.9.6
+
+```
+
+<b> docker-compose.yaml </b> is where we build our containers.
+
+- Create airflow containers from Dockerfile (volumes transfer all project folders from local machine -> container)
+
+```python
+# ./docker-compose.yaml
+x-airflow-common:
+  &airflow-common
+  build:
+    context: ./docker/
+  environment:
+    &airflow-common-env
+    ...
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+   
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
+    - ./postgreSQL_setup:/opt/airflow/postgreSQL_setup
+    ...
+
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
+  depends_on:
+    postgres:
+      condition: service_healthy
+```
+
+- Create containers for Postgres, airflow-webserver, airflow-scheduler, airflow-init and dashboard (metabase)
+
+```python
+# ./docker-compose.yaml
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - ./postgreSQL_setup:/docker-entrypoint-initdb.d
+    healthcheck:
+      ...
+    restart: always
+
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: webserver
+    command: webserver
+    ports:
+      - 8080:8080
+    depends_on:
+      - airflow-init
+    restart: always
+
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: scheduler
+    command: scheduler
+    depends_on:
+      - airflow-init
+      - airflow-webserver
+    restart: always
+
+  airflow-init: # Init airflow
+    <<: *airflow-common
+    command: airflow db init 
+
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+  
+  dashboard: # For visualize final analytic results
+    image: metabase/metabase
+    container_name: dashboard
+    ports:
+      - "3000:3000"
+```
+<br> <br>
+
+<img src="docker_containers.png" alt="docker_containers" height="500">
+
+### Running 
+
+Please refer to Makefile for more details
 ```
 # Clone and cd into the project directory
 git clone https://github.com/anhvuphamtan/Batch-Processing.git
@@ -332,3 +442,5 @@ Connect redshift to metabase and visualize result
   <img src=assets/Shipping%20orders%20by%20company.png alt="Shipping orders by company" height="500">
   <p style="text-align: center;">Shipping orders by company </p>
 </div>
+  
+
