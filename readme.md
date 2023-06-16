@@ -41,6 +41,9 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 - AWS account (if you wish to build your own cloud infrastructure, please go to terraform/* and modify)
 
 ### AWS Infrastructure 
+
+<img src="/assets/Redshift_diagram.png" alt="Redshift diagram" height="500">
+
 - 2 <b> dc2.large </b> type nodes for Redshift cluster
 - Redshift cluster type : multi-node
 - <i> Redshift cluster is put inside a VPC (10.10.0.0/16), redshift subnet group consists of 2 subnets "Subnet for redshift az 1"(10.10.0.0/24) and "Subnet for redshift az 2" (10.01.1.0/24), each subnet is put in an Availability zone. </i>
