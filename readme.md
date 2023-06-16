@@ -40,6 +40,40 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 - Terraform 
 - AWS account (if you wish to build your own cloud infrastructure, please go to terraform/* and modify)
 
+### AWS Infrastructure 
+- 2 <b> dc2.large </b> type nodes for Redshift cluster
+- Redshift cluster type : multi-node
+- <i> Redshift cluster is put inside a VPC (10.10.0.0/16), redshift subnet group consists of 2 subnets "Subnet for redshift az 1"(10.10.0.0/24) and "Subnet for redshift az 2" (10.01.1.0/24), each subnet is put in an Availability zone. </i>
+
+-   <i> These two subnets associate with a public route table (outbound traffic to the public internet through the Internet Gateway). </i>
+ 
+- <i> Redshift security group allows all inbound traffic from port 5439. </i>
+
+- <i> Finally, IAM role is created for Redshift with full S3 Access. </i>
+
+- <i> Create redshift cluster </i>
+
+```python
+resource "aws_redshift_cluster" "sale_redshift_cluster" {
+    cluster_identifier  = var.redshift_cluster_identifier
+    database_name       = var.redshift_database_name
+    master_username     = var.redshift_master_username
+    master_password     = var.redshift_master_password
+    node_type           = var.redshift_node_type
+    cluster_type        = var.redshift_cluster_type
+    number_of_nodes     = var.redshift_number_of_nodes
+
+    iam_roles = [aws_iam_role.redshift_iam_role.arn]  
+
+    cluster_subnet_group_name = aws_redshift_subnet_group.redshift_subnet_group.id
+    skip_final_snapshot = true
+
+    tags = {
+        Name = "vupham_redshift_cluster"
+    }
+}
+```
+
 Refer to Makefile for more details
 ```
 # Clone and cd into the project directory
