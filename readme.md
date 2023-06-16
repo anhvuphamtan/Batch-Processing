@@ -183,7 +183,7 @@ services:
 ```
 <br> <br>
 
-<img src="docker_containers.png" alt="docker_containers" height="500">
+<img src="/assets/docker_containers.png" alt="docker_containers" height="500">
 
 ### Running 
 
