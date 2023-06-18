@@ -219,46 +219,46 @@ make infra-up # Build cloud infrastructure
 
 
  ```python
-    # ./dags_setup.py # Airflow dags
-    # -------------- Create schema task ------------- #
-    Create_psql_schema = PostgresOperator(
-        task_id = 'Create_psql_schema',
-        postgres_conn_id = 'postgres_sale_db',
-        sql = 'create_pgsql_schema.sql'
-    )
-    # ---------------------------------------------- #
-    
-    
-    # ---------------- Extract task ---------------- #
-    Extract_from_source = PythonOperator(
-        task_id = 'Extract_from_source',
-        python_callable = Extract_from_source
-    )
-    # ---------------------------------------------- #
-    
-    
-    # ---------------- Transform task ---------------- #
-    Transform_products = PythonOperator(
-        task_id = "Transform_product_df",
-        python_callable = Transform_products,
-        op_kwargs = {"Name" : "products", "filePath" : "products.csv"}
-    )
+# ./dags_setup.py # Airflow dags
+# -------------- Create schema task ------------- #
+Create_psql_schema = PostgresOperator(
+    task_id = 'Create_psql_schema',
+    postgres_conn_id = 'postgres_sale_db',
+    sql = 'create_pgsql_schema.sql'
+)
+# ---------------------------------------------- #
 
-    .....
-    
-    Transform_shipments = PythonOperator(
-        task_id = "Transform_shipment_df",
-        python_callable = Transform_shipments,
-        op_kwargs = {"Name" : "shipments", "filePath" : "shipments.csv"}
-    )
-    # ----------------------------------------------- #
-    
-    # ----------------- Load task ----------------- #
-    Load_psql = PythonOperator(
-        task_id = "Load_to_psql",
-        python_callable = Load_schema
-    )
-    # -------------------------------------------- #
+
+# ---------------- Extract task ---------------- #
+Extract_from_source = PythonOperator(
+    task_id = 'Extract_from_source',
+    python_callable = Extract_from_source
+)
+# ---------------------------------------------- #
+
+
+# ---------------- Transform task ---------------- #
+Transform_products = PythonOperator(
+    task_id = "Transform_product_df",
+    python_callable = Transform_products,
+    op_kwargs = {"Name" : "products", "filePath" : "products.csv"}
+)
+
+.....
+
+Transform_shipments = PythonOperator(
+    task_id = "Transform_shipment_df",
+    python_callable = Transform_shipments,
+    op_kwargs = {"Name" : "shipments", "filePath" : "shipments.csv"}
+)
+# ----------------------------------------------- #
+
+# ----------------- Load task ----------------- #
+Load_psql = PythonOperator(
+    task_id = "Load_to_psql",
+    python_callable = Load_schema
+)
+# -------------------------------------------- #
  ``` 
  
 <b> 1. Create_psql_schema : </b> Create PostgreSQL schema and its tables according to our data model design.
@@ -376,22 +376,22 @@ that loads dynamically any dataframe 'df' to table 'table_name'.
 <b> Airflow tasks </b>
   
 ```python
-  
-    ETL_s3 = PythonOperator(
-        task_id = "ETL_s3",
-        python_callable = ETL_s3
-    )
+# ./dags_setup.py # Airflow dags
+ETL_s3 = PythonOperator(
+    task_id = "ETL_s3",
+    python_callable = ETL_s3
+)
 
-    Create_redshift_schema = PythonOperator(
-        task_id = "Create_redshift_schema",
-        python_callable = Create_redshift_schema,
-        op_kwargs = {"root_dir" : "/opt/airflow/redshift_setup"}  
-    )
+Create_redshift_schema = PythonOperator(
+    task_id = "Create_redshift_schema",
+    python_callable = Create_redshift_schema,
+    op_kwargs = {"root_dir" : "/opt/airflow/redshift_setup"}  
+)
 
-    Load_s3_redshift = PythonOperator(
-        task_id = "Load_s3_redshift",
-        python_callable = Load_s3_to_redshift
-    )
+Load_s3_redshift = PythonOperator(
+    task_id = "Load_s3_redshift",
+    python_callable = Load_s3_to_redshift
+)
 ```
 <br> <br>
 <b> 1. ETL_psql_s3 : </b> Extract data from PostgreSQL database, perform transformation, and load to S3 bucket
