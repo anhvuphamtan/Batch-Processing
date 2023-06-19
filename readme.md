@@ -310,40 +310,40 @@ class Transform_df : # Parent class for transformation of dataframe
 
 ```
 <br>
-<b> <i> a. Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
+  <b> <i> a. Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
 
-- Initially there is no csv file for locations, this class is generated from 'Customers.csv' and 'Shipments.csv' to store data
-about locations by extracting customer and shipping addresses, merge them into a new dataframe. By doing this, we could reduce
-dimensions in both 'customer' and 'shipment' dataframe, have better relationship as well.
+  - Initially there is no csv file for locations, this class is generated from 'Customers.csv' and 'Shipments.csv' to store data
+  about locations by extracting customer and shipping addresses, merge them into a new dataframe. By doing this, we could reduce
+  dimensions in both 'customer' and 'shipment' dataframe, have better relationship as well.
 
-<b> <i> b. Transform_customers.py </i> -> <i> Transform_customers class </i> </b>
+  <b> <i> b. Transform_customers.py </i> -> <i> Transform_customers class </i> </b>
 
-- Drop columns ['City', 'State', 'Country']
+  - Drop columns ['City', 'State', 'Country']
 
-<b> <i> c. Transform_shipments.py </i> -> <i> Transform_shipments class </i> </b>
+  <b> <i> c. Transform_shipments.py </i> -> <i> Transform_shipments class </i> </b>
 
-- Create new columns 'Shipping address' and 'Shipping zipcode' from original column 'Destination'.
-- Convert column 'Shipping status' to lowercase letters 
-- Drop duplicate values in column 'Order ID', since each 'Order ID' can belong exactly to one 'Shipment ID' only.
-- Drop columns 'Destination'
+  - Create new columns 'Shipping address' and 'Shipping zipcode' from original column 'Destination'.
+  - Convert column 'Shipping status' to lowercase letters 
+  - Drop duplicate values in column 'Order ID', since each 'Order ID' can belong exactly to one 'Shipment ID' only.
+  - Drop columns 'Destination'
 
-<b> <i> d. Transform_products.py </i> -> <i> Transform_products class </i> </b>
+  <b> <i> d. Transform_products.py </i> -> <i> Transform_products class </i> </b>
 
-- Fill null value in column "BRAND" with "unknown".
-- Create new column 'COMMISION' which is the profit gained by selling the product.
+  - Fill null value in column "BRAND" with "unknown".
+  - Create new column 'COMMISION' which is the profit gained by selling the product.
 
-<b> <i> e. Transform_sales.py </i> -> <i> Transform_sales class </i> </b>
+  <b> <i> e. Transform_sales.py </i> -> <i> Transform_sales class </i> </b>
 
-- Covert to datetime format for column 'Date'
-- Re-calculate column 'Total cost' which is the total cost of each 'Order ID' (there is quite a lot of inconsistent between 
-table 'Products' and 'Sales') by using binary search function ```search_product(self, sale_prod_id) ``` :
+  - Covert to datetime format for column 'Date'
+  - Re-calculate column 'Total cost' which is the total cost of each 'Order ID' (there is quite a lot of inconsistent between 
+  table 'Products' and 'Sales') by using binary search function ```search_product(self, sale_prod_id) ``` :
 
-    - Store column 'PRODUCT ID' from dataframe 'Products' in a list and sort it
-    - For each 'Product ID' in an 'Order ID' in 'Sales' dataframe, perform binary search to retrieve 'Product sell price' & 'Product commision rate'
-- The value 'Product commision rate' is also used to create new column 'Total Profit'.
+      - Store column 'PRODUCT ID' from dataframe 'Products' in a list and sort it
+      - For each 'Product ID' in an 'Order ID' in 'Sales' dataframe, perform binary search to retrieve 'Product sell price' & 'Product commision rate'
+  - The value 'Product commision rate' is also used to create new column 'Total Profit'.
 
-<b> <i> f. Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema. </b>
- 
+  <b> <i> f. Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema. </b>
+
 <br> <br>
 <b> 4. Load_to_psql : </b> Load all transformed data into PostgreSQL database.
 <br> <br>
@@ -398,13 +398,13 @@ Load_s3_redshift = PythonOperator(
   
 ```./airflow/dags/ETL_redshift/ETL_psql_s3.py -> ETL_s3() ```
   
-``ETL_s3()``` contains these below function
+```ETL_s3()``` contains these below function :
  
-```Extract_from_postgreSQL(df_dict)``` extract data from PostgreSQL database, each table is loaded as dataframe into 'df_dict'.
+- ```Extract_from_postgreSQL(df_dict)``` : extract data from PostgreSQL database, each table is loaded as dataframe into 'df_dict'.
   
-```Transform(df_dict)``` perform transformation to fit data into star schema desgin in data warehouse, include joining dataframes, dropping unecessary columns and re-order columns.
+- ```Transform(df_dict)``` : perform transformation to fit data into star schema desgin in data warehouse, include joining dataframes, dropping unecessary columns and re-order columns.
 
-```Load_s3(df_dict)``` Load all dataframes to S3 bucket.
+- ```Load_s3(df_dict)``` : Load all dataframes to S3 bucket.
   
  
 <br> <br>
