@@ -1,4 +1,4 @@
-# Batch Processing : ETL pipeline, data modelling and warehousing using Airflow, Redshift
+# Batch Processing : ETL pipeline, data modelling and warehousing using Airflow, Redshift and Docker
 
 ## 1. Introduction 
 Data is collected from an e-commerce company about their sales in the US in 2022, the company's analytic teams is interested in understanding the business situation in the last year.
