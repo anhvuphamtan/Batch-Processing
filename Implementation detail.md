@@ -361,7 +361,7 @@ table 'Products' and 'Sales') by using binary search function ```search_product(
 - The value 'Product commision rate' is also used to create new column 'Total Profit'.
 
 <br> <br>
-<b> <i> f. Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema.
+<b> <i> f. Rename_col_df.py </i> : This file renames columns in all dataframes to fit PostgreSQL schema. </b>
  
 <br> <br>
 <b> 4. Load_to_psql : </b> Load all transformed data into PostgreSQL database.
