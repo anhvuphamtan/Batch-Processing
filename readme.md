@@ -18,7 +18,7 @@
 ## 1. Introduction 
 Data is collected from an e-commerce company about their sales in the US in 2022, the company's analytic teams is interested in understanding the business situation in the last year.
 
-Data include 4 csv files : Sales, Products, Shipments, Customers.
+Data include 4 csv files : <b> <i> Sales, Products, Shipments, Customers. </i> </b>
 
 ## 2. Implementation overview 
 Design Data Model for Postgres and build ETL pipeline using python; subsequently design a Star Schema for data warehousing (Redshift),
@@ -30,21 +30,21 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 ## 3. Design 
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Data%20model.png alt="Data model" width="600" height="500">
-  <p style="text-align: center;"> Data model for Postgres </p>
+  <p style="text-align: center;"> <b> <i> Data model for Postgres </i> </b> </p>
 </div>
 
 <br> <br>
 
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Star%20schema.png alt="Star schema" width="600" height="500">
-  <p style="text-align: center;">Data model (star schema) for Redshift </p>
+  <p style="text-align: center;"> <b> <i> Data model (star schema) for Redshift </i> </b> </p>
 </div>
 
 <br> <br>
 
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Airflow_workflow.png alt="Star schema" width="900" height="500">
-  <p style="text-align: center;">Airflow workflow </p>
+  <p style="text-align: center;"> <b> <i> Airflow workflow </i> </b> </p>
 </div>
 
 
@@ -236,28 +236,37 @@ Load_s3_redshift = PythonOperator(
 
 Connect redshift to metabase and visualize results
 
-<img src="assets/metabase.png" alt="metabase">
-  
-<b> Results </b>
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/metabase.png alt="connect_metabase" height="500">
+  <p style="text-align: center;"> <b> <i> Connect to metabase </i> </b> </p>
+</div>
+
+### Results
 
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Revenue%20by%20month.png alt="Revenue by month" height="500">
-  <p style="text-align: center;">Revenue by month in 2022 </p>
+  <p style="text-align: center;"> <b> <i> Revenue by month in 2022 </i> </b> </p>
 </div>
+
+<br> <br>
   
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Brand%20popularity.png alt="Brand popularity.png" height="500">
-  <p style="text-align: center;">Brand popularity </p>
+  <p style="text-align: center;"> <b> <i> Brand popularity </i> </b> </p>
 </div>
+
+<br> <br>
   
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Profit%20by%20state.png alt="Profit by state.png" height="500">
-  <p style="text-align: center;">Profit by state </p>
+  <p style="text-align: center;"> <b> <i> Profit by state </i> </b> </p>
 </div>
-  
+
+<br> <br>
+
 <div style="display: flex; flex-direction: column;">
   <img src=assets/Shipping%20orders%20by%20company.png alt="Shipping orders by company" height="500">
-  <p style="text-align: center;">Shipping orders by company </p>
+  <p style="text-align: center;"> <b> <i> Shipping orders by company </i> </b> </p>
 </div>
   
 
