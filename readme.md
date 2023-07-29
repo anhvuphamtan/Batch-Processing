@@ -4,15 +4,16 @@
 1. [Introduction](#1-introduction)
 2. [Implementation Overview](#2-implementation-overview)
 3. [Design](#3-design)
-4. [Settings](#4-settings)
+4. [Project structure](#4-project-structure)
+5. [Settings](#5-settings)
    - [Prerequisites](#prerequisites)
    - [AWS Infrastructure](#aws-infrastructure)
    - [Docker](#docker)
    - [Running](#running)
-5. [Implementation Detail](#5-implementation-detail)
-   - [Load Sales Data into PostgreSQL Database](#51-load-sales-data-into-postgresql-database)
-   - [Load Data from PostgreSQL to Amazon Redshift](#52-load-data-from-postgresql-to-amazon-redshift)
-6. [Visualize Result](#6-visualize-result)
+6. [Implementation](#6-implementation)
+   - [Load Sales Data into PostgreSQL Database](#61-load-sales-data-into-postgresql-database)
+   - [Load Data from PostgreSQL to Amazon Redshift](#62-load-data-from-postgresql-to-amazon-redshift)
+7. [Visualize Result](#7-visualize-result)
 
 
 ## 1. Introduction 
@@ -48,7 +49,54 @@ Docker for containerizing the project - allow for fast build, test, and deploy p
 </div>
 
 
-## 4. Settings
+## 4. Project Structure
+
+```bash
+
+Batch-Processing/
+  ├── airflow/
+  │   ├── dags/
+  │   │   ├── dags_setup.py
+  │   │   ├── ETL_psql
+  │   │   │   ├── Extract
+  │   │   │   │   └── Extract.py
+  │   │   │   ├── Load/
+  │   │   │   │   └── Load_psql.py
+  │   │   │   └── Transform
+  │   │   │       ├── Rename_col_df.py
+  │   │   │       ├── Transform.py
+  │   │   │       ├── Transform_customers.py
+  │   │   │       ├── Transform_locations.py
+  │   │   │       ├── Transform_products.py
+  │   │   │       ├── Transform_shipments.py
+  │   │   │       └── Transfrom_sales.py
+  │   │   └── ETL_redshift
+  │   │       ├── ETL_psql_s3.py
+  │   │       └── Load_s3_to_redshift.py
+  │   └── logs
+  ├── postgreSQL_setup
+  │   └── create_pgsql_schema.sql
+  ├── redshift_setup
+  │   └── create_redshift_schema.sql
+  ├── docker
+  │   ├── Dockerfile
+  │   └── requirements.txt
+  ├── docker-compose.yaml
+  ├── Implementation detail.md
+  ├── assets
+  │   └── Many images.png
+  ├── Input_data
+  ├── Transformed_data
+  ├── Makefile
+  ├── terraform
+  │   ├── main.tf
+  │   ├── terraform.tfvars
+  │   └── variables.tf
+  └── readme.md
+```
+<br>
+
+## 5. Settings
 
 ### Prerequisites
 - AWS account 
@@ -135,11 +183,11 @@ make infra-init # Only need in the first run
 make infra-up # Build cloud infrastructure
 ```
 
-## 5. Implementation detail
+## 6. Implementation
 
 ### Refer to [Implementation detail.md](/Implementation%20detail.md) for more details on implementation
 
-### 5.1 Load sales data into PostgreSQL database
+### 6.1 Load sales data into PostgreSQL database
 
 <img src=assets/ETL_psql.png alt="ETL psql" height="400">
 
@@ -200,7 +248,9 @@ all they all inherit from the parent class in <i> Transform.py </i> :
 
 <b> 4. Load_to_psql : </b> Load all transformed data into PostgreSQL database.
 
-### 5.2 Load data from PostgreSQL to Amazon Redshift
+<br>
+
+### 6.2 Load data from PostgreSQL to Amazon Redshift
 <img src=assets/ETL_redshift.png alt="ETL redshift" height="400">
 
 <b> Airflow tasks </b>
@@ -232,7 +282,7 @@ Load_s3_redshift = PythonOperator(
   
 <br> 
 
-## 6. Visualize result
+## 7. Visualize result
 
 Connect redshift to metabase and visualize results
 
