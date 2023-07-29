@@ -1,4 +1,4 @@
-# Batch Processing : ETL pipeline, data modelling and warehousing
+# Batch Processing : ETL pipeline, data modelling and warehousing of Sales data
 
 ## Table of Contents
 1. [Introduction](#1-introduction)
@@ -18,7 +18,7 @@
 
 
 ## 1. Introduction 
-Data is collected from an e-commerce company about their sales in 2022, the company's analytic teams is interested in understanding their business situation in the last year.
+Data is collected from an e-commerce company about their sales in 2022, the company's analytic teams is interested in understanding their business situation in the last year. We will build ETL pipelines which will transform raw data into actionable insights, store them in OLTP database (PostgreSQL) and OLAP database (Amazon Redshift) for enhanced data analytics capabilities.
 
 Data include 4 csv files : <b> <i> Sales, Products, Shipments, Customers. </i> </b>
 
@@ -31,9 +31,7 @@ Data include 4 csv files : <b> <i> Sales, Products, Shipments, Customers. </i> <
 - Docker
 
 ## 2. Implementation overview 
-Design Data Model for Postgres and build ETL pipeline using python; subsequently design a Star Schema for data warehousing (Redshift),
-build a second ETL pipeline to handle this from Postgres to Redshift. Using Airflow to orchestrate pipeline workflow, Terraform for setting up AWS Redshift cluster, and
-Docker for containerizing the project - allow for fast build, test, and deploy project.
+Design data models for OLTP database (PostgreSQL) and data warehouse (Amazon Redshift). Build an ETL pipeline to transform raw data into actionable insights in PostgreSQL, also store them in S3 for staging. Then implement another ETL pipeline which process data from S3 and load them to Amazon Redshift for enhanced data analytics . Using Airflow to orchestrate pipeline workflow, Terraform for setting up AWS Redshift cluster, and Docker to containerize the project - allow for fast build, test, and deploy project.
 
 <img src = assets/Airflow%20conceptual%20view.png alt = "Airflow conceptual view">
 
