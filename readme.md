@@ -1,4 +1,4 @@
-# Batch Processing : ETL pipeline, data modelling and warehousing using Airflow, Redshift and Docker
+# Batch Processing : ETL pipeline, data modelling and warehousing
 
 ## Table of Contents
 1. [Introduction](#1-introduction)
@@ -17,9 +17,17 @@
 
 
 ## 1. Introduction 
-Data is collected from an e-commerce company about their sales in the US in 2022, the company's analytic teams is interested in understanding the business situation in the last year.
+Data is collected from an e-commerce company about their sales in 2022, the company's analytic teams is interested in understanding their business situation in the last year.
 
 Data include 4 csv files : <b> <i> Sales, Products, Shipments, Customers. </i> </b>
+
+### Technology used :
+- Python
+- PostgreSQL
+- Airflow
+- Terraform (Infrastructure provisioning tool)
+- AWS services : S3, Redshift (data warehouse)
+- Docker
 
 ## 2. Implementation overview 
 Design Data Model for Postgres and build ETL pipeline using python; subsequently design a Star Schema for data warehousing (Redshift),
