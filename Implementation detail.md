@@ -5,9 +5,10 @@
 
 <b> Airflow tasks </b>
 
+[Airflow dags](/airflow/dags/dags_setup.py)
 
  ```python
-    # ./dags_setup.py # Airflow dags
+    # Airflow dags
     # -------------- Create schema task ------------- #
     Create_psql_schema = PostgresOperator(
         task_id = 'Create_psql_schema',
@@ -52,96 +53,16 @@
 <br> <br>
 <b> 1. Create_psql_schema : </b> Create PostgreSQL schema and its tables according to our data model design.
 ``` ./postgreSQL_setup/create_pgsql_schema.sql ```
-```sql
--- Create Schema `Sale_schema` for postgreSQL database
 
-DROP SCHEMA IF EXISTS Sale_schema CASCADE;
+[Create Sale_schema](/postgreSQL_setup/create_pgsql_schema.sql)
 
-CREATE SCHEMA Sale_schema;
-
-CREATE TABLE IF NOT EXISTS Sale_schema.Sales (
-    Order_ID VARCHAR(255) PRIMARY KEY,
-    Order_date Date,
-    Product_ID BIGINT,
-    Style VARCHAR(45),
-    Size VARCHAR(45),
-    Quantity INT,
-    Payment_method VARCHAR(255),
-    Total_cost DECIMAL,
-    Profit DECIMAL,
-    Customer_ID VARCHAR(255)
-);
-
-CREATE TABLE IF NOT EXISTS Sale_schema.Products (
-    Product_ID BIGINT PRIMARY KEY,
-    Product_name VARCHAR(255),
-    SKU INT,
-    Brand VARCHAR(255),
-    Category VARCHAR(255),
-    Product_size DECIMAL,
-    Sell_price DECIMAL,
-    Commision_rate DECIMAL,
-    Commision DECIMAL
-);
-
-CREATE TABLE IF NOT EXISTS Sale_schema.Customers (
-    Customer_ID VARCHAR(255) PRIMARY KEY,
-    Name VARCHAR(255),
-    Phone VARCHAR(255),
-    Age INT,
-    Address VARCHAR(255),
-    Postal_code INT
-);
-
-CREATE TABLE IF NOT EXISTS Sale_schema.Shipments (
-    Shipment_ID VARCHAR(255) PRIMARY KEY,
-    Order_ID VARCHAR(255),
-    Shipping_date Date,
-    Shipping_mode VARCHAR(255),
-    Shipping_address VARCHAR(255),
-    Shipping_status VARCHAR(255),
-    Shipping_company VARCHAR(255),
-    Shipping_cost DECIMAL,
-    Shipping_zipcode INT
-);
-
-CREATE TABLE Sale_schema.Locations (
-    Postal_code INT PRIMARY KEY,
-    City VARCHAR(45),
-    State VARCHAR(45),
-    Country VARCHAR(45)
-);
-
-ALTER TABLE Sale_schema.Sales
-ADD CONSTRAINT fk_sale_product_prodID FOREIGN KEY (Product_ID)
-REFERENCES Sale_schema.Products (Product_ID)
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-ALTER TABLE Sale_schema.Sales
-ADD CONSTRAINT fk_sale_customer_custID FOREIGN KEY (Customer_ID)
-REFERENCES Sale_schema.Customers (Customer_ID)
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE Sale_schema.Shipments
-ADD CONSTRAINT fk_shipment_sale_orderID FOREIGN KEY (Order_ID)
-REFERENCES Sale_schema.Sales (Order_ID)
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE Sale_schema.Shipments
-ADD CONSTRAINT fk_shipment_location_zipcode FOREIGN KEY (Shipping_zipcode)
-REFERENCES Sale_schema.Locations (Postal_code)
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE Sale_schema.Customers
-ADD CONSTRAINT fk_customer_location_postcode FOREIGN KEY (Postal_code)
-REFERENCES Sale_schema.Locations (Postal_code)
-ON DELETE CASCADE ON UPDATE CASCADE;
-```
-<br> <br>
+<br> 
 <b> 2. Extract_from_source : </b> Extract raw data from s3 bucket and store them in <i> Input_data </i> folder.
+
+[Extract.py](/airflow/dags/ETL_psql/Extract/Extract.py)
+
 ```python
-# .airflow/dags/ETL_psql/Extract.py -> Extract_from_source()
+# .airflow/dags/ETL_psql/Extract/Extract.py -> Extract_from_source()
 def Extract_from_source() : # Extract raw data from S3 bucket
     session = boto3.Session( 
         aws_access_key_id = "AKIA33I2NGIK2R5PCCOT",
@@ -166,9 +87,11 @@ def Extract_from_source() : # Extract raw data from S3 bucket
 
 <br> <br>
 <b> 3. Perform transformation : </b> This part split into 5 small tasks, each handle the data transformation on a specific topic.
-There are 6 python files : <i> Transform.py </i>, <i> Transform_***.py </i> where *** correspond to a topic ['sales', 'products', 'customers', 'shipments', 'locations'].
-Each <i> Transform_***.py </i> responsible for cleaning, transforming and integrating to a corresponding OLTP table. Python class is used,
+There are 6 python files : <i> Transform.py </i>, <i> Transform_<b>name</b>.py </i> where <b>name</b> correspond to a topic <b> <i> ['sales', 'products', 'customers', 'shipments', 'locations']. </i> </b>
+Each <i> Transform_<b>name</b>py </i> responsible for cleaning, transforming and integrating to a corresponding OLTP table. Python class is used,
 all they all inherit from the parent class in <i> Transform.py </i> :
+
+[Transform.py](/airflow/dags/ETL_psql/Transform/Transform.py)
 
 ```.airflow/dags//ETL_psql/Transform/Transform.py ```
 
@@ -218,7 +141,9 @@ class Transform_df : # Parent class for transformation of dataframe
 
 ```
 <br> <br>
-<b> <i>a. Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
+<b> <i> a. Transform_locations.py </i> -> <i> Transform_locations class </i> </b>
+
+[Transform_locations.py](/airflow/dags/ETL_psql/Transform/Transform_locations.py)
 
 ```python
 class Transform_location_df(Transform_df) : # Transform locations dataframe class
@@ -251,6 +176,8 @@ dimensions in both 'customer' and 'shipment' dataframe, have better relationship
 <br> <br>
 <b> <i>b. Transform_customers.py </i> -> <i> Transform_customers class </i> </b>
 
+[Transform_customers.py](/airflow/dags/ETL_psql/Transform/Transform_customers.py)
+
 ```python
 class Transform_customer_df(Transform_df) : # Transfrom customers dataframe class    
     def transform(self) : 
@@ -265,6 +192,8 @@ def Transform_customers(Name, filePath) :
 
 <br> <br>
 <b> <i>c. Transform_shipments.py </i> -> <i> Transform_shipments class </i> </b>
+
+[Transform_shipments.py](/airflow/dags/ETL_psql/Transform/Transform_shipments.py)
 
 ```python
 class Transform_shipment_df(Transform_df) : # Transform shipments dataframe class 
@@ -291,6 +220,8 @@ class Transform_shipment_df(Transform_df) : # Transform shipments dataframe clas
 <br> <br>
 <b> <i>d. Transform_products.py </i> -> <i> Transform_products class </i> </b>
 
+[Transform_products.py](/airflow/dags/ETL_psql/Transform/Transform_products.py)
+
 ```python
 class Transform_product_df(Transform_df) : # Transform products dataframe class
     def extra_var(self): 
@@ -314,6 +245,8 @@ class Transform_product_df(Transform_df) : # Transform products dataframe class
 
 <br> <br>
 <b> <i>e. Transform_sales.py </i> -> <i> Transform_sales class </i> </b>
+
+[Transform_sales.py](/airflow/dags/ETL_psql/Transform/Transform_sales.py)
 
 ```python
 class Transform_sale_df(Transform_df) : # Transform sales dataframe class
@@ -365,6 +298,8 @@ table 'Products' and 'Sales') by using binary search function ```search_product(
  
 <br> <br>
 <b> 4. Load_to_psql : </b> Load all transformed data into PostgreSQL database.
+
+[Load_psql.py](/airflow/dags/ETL_psql/Load/Load_psql.py)
 
 ```.airflow/dags/ETL_psql/Load/Load_psql.py```
 
@@ -429,6 +364,8 @@ that loads dynamically any dataframe 'df' to table 'table_name'.
 ### 5.2 Load data from PostgreSQL to Amazon Redshift :
 <img src=assets/ETL_redshift.png alt="ETL redshift" height="400">
 
+[dags_setup.py](/airflow/dags/dags_setup.py)
+
 <b> Airflow tasks </b>
   
 ```python
@@ -452,6 +389,8 @@ that loads dynamically any dataframe 'df' to table 'table_name'.
 
 <br> <br>
 <b> 1. ETL_psql_s3 : </b> Extract data from PostgreSQL database, perform transformation, and load to S3 bucket
+
+[ETL_psql_s3.py](/airflow/dags/ETL_redshift/ETL_psql_s3.py)
 
 <b> <i> Extract data from PostgreSQL database </i> </b>
   
@@ -599,86 +538,12 @@ def ETL_s3() :
 <b> 2. Create_redshift_schema : </b> Create redshift schema
 
 ```./redshift_setup/create_redshift_schema.sql```
+
+[create_redshift_schema.sql](/airflow/redshift_setup/create_redshift_schema.sql)
  
- ```sql
- DROP SCHEMA IF EXISTS warehouse_sales CASCADE;
-
-CREATE SCHEMA warehouse_sales;
-
-CREATE TABLE warehouse_sales.Sales (
-    Sale_ID VARCHAR(255) PRIMARY KEY,
-    Revenue DECIMAL(10, 3),
-    Profit DECIMAL(10, 3),
-    Quantity INT,
-    Shipping_cost DECIMAL(10, 3),
-
-    Product_ID BIGINT,
-    Customer_ID VARCHAR(255),
-    Shipping_zipcode INT,
-    Order_date DATE,
-    Shipment_ID VARCHAR(255)
-);
-
-CREATE TABLE IF NOT EXISTS warehouse_sales.Products (
-    Product_ID BIGINT PRIMARY KEY,
-    Product_name VARCHAR(255),
-    SKU INT,
-    Brand VARCHAR(255),
-    Category VARCHAR(255),
-    Product_size DECIMAL
-);
-
-CREATE TABLE IF NOT EXISTS warehouse_sales.Shipments (
-    Shipment_ID VARCHAR(255) PRIMARY KEY,
-    Shipping_mode VARCHAR(255),
-    Shipping_status VARCHAR(255),
-    Shipping_company VARCHAR(255)
-);
-
-CREATE TABLE IF NOT EXISTS warehouse_sales.Customers (
-    Customer_ID VARCHAR(255) PRIMARY KEY,
-    Name VARCHAR(255),
-    Phone VARCHAR(255),
-    Age INT
-);
-
-CREATE TABLE IF NOT EXISTS warehouse_sales.Locations (
-    Shipping_zipcode INT PRIMARY KEY,
-    City VARCHAR(45),
-    State VARCHAR(45),
-    Country VARCHAR(45),
-    Shipping_address VARCHAR(255)
-);
-
-CREATE TABLE IF NOT EXISTS warehouse_sales.Time (
-    Full_date Date PRIMARY KEY,
-    Day INT,
-    Month INT,
-    Year INT
-);
-
-ALTER TABLE warehouse_sales.Sales 
-ADD CONSTRAINT fk_sale_product_prodID FOREIGN KEY (Product_ID)
-REFERENCES warehouse_sales.Products (Product_ID);
-
-ALTER TABLE warehouse_sales.Sales 
-ADD CONSTRAINT fk_sale_customer_custID FOREIGN KEY (Customer_ID)
-REFERENCES warehouse_sales.Customers (Customer_ID);
-
-ALTER TABLE warehouse_sales.Sales 
-ADD CONSTRAINT fk_sale_customer_shipmentID FOREIGN KEY (Shipment_ID)
-REFERENCES warehouse_sales.Shipments (Shipment_ID);
-
-ALTER TABLE warehouse_sales.Sales 
-ADD CONSTRAINT fk_sale_customer_zipcode FOREIGN KEY (Shipping_zipcode)
-REFERENCES warehouse_sales.Locations (Shipping_zipcode);
-
-ALTER TABLE warehouse_sales.Sales 
-ADD CONSTRAINT fk_sale_customer_timeID FOREIGN KEY (Order_date)
-REFERENCES warehouse_sales.Time (Full_date);
- ```
-
 ```./airflow/dags/ETL_redshift/Load_s3_to_redshift.py -> Establish_redshift_connection() & Create_redshift_schema() ```
+
+[Load_s3_to_redshift.py](/airflow/dags/ETL_redshift/Load_s3_to_redshift.py)
 
 ```python
 import redshift_connector
@@ -724,6 +589,8 @@ Establish redshift connection using <b> redshift_connector </b> library, redshif
 
 <br> <br>
 <b> 3. Load_s3_redshift : </b> Load data from S3 bucket to Redshift
+
+[Load_s3_to_redshift.py](/airflow/dags/ETL_redshift/Load_s3_to_redshift.py)
 
 ```./airflow/dags/ETL_redshift/Load_s3_to_redshift.py -> Load_s3_to_redshift() ```
 
