@@ -2,18 +2,19 @@
 
 ## Table of Contents
 1. [Introduction](#1-introduction)
-2. [Implementation Overview](#2-implementation-overview)
-3. [Design](#3-design)
-4. [Project structure](#4-project-structure)
-5. [Settings](#5-settings)
+   - [Technologies used](#technologies-used)
+3. [Implementation Overview](#2-implementation-overview)
+4. [Design](#3-design)
+5. [Project structure](#4-project-structure)
+6. [Settings](#5-settings)
    - [Prerequisites](#prerequisites)
    - [AWS Infrastructure](#aws-infrastructure)
    - [Docker](#docker)
    - [Running](#running)
-6. [Implementation](#6-implementation)
+7. [Implementation](#6-implementation)
    - [Load Sales Data into PostgreSQL Database](#61-load-sales-data-into-postgresql-database)
    - [Load Data from PostgreSQL to Amazon Redshift](#62-load-data-from-postgresql-to-amazon-redshift)
-7. [Visualize Result](#7-visualize-result)
+8. [Visualize Result](#7-visualize-result)
 
 
 ## 1. Introduction 
@@ -21,7 +22,7 @@ Data is collected from an e-commerce company about their sales in 2022, the comp
 
 Data include 4 csv files : <b> <i> Sales, Products, Shipments, Customers. </i> </b>
 
-### Technology used :
+### Technologies used
 - Python
 - PostgreSQL
 - Airflow
