@@ -93,58 +93,6 @@ resource "aws_route_table_association" "redshift_subnet_2_to_igw" {
     route_table_id  = aws_route_table.public_route_igw.id
 }
 
-# Security Group
-resource "aws_default_security_group" "redshift_security_group" {
-    depends_on = [aws_vpc.server_vpc]
-    
-    vpc_id = aws_vpc.server_vpc.id
-    
-    ingress {
-        description = "Redshift Port"
-        from_port   = 5439
-        to_port     = 5439
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"] 
-    }
-    
-    tags = {
-        Name = "redshift_security_group"
-    }
-}
-
-
-# --------------------------- IAM Role for Redshift clusters --------------------------- #
-resource "aws_iam_role" "redshift_iam_role" {
-    name                = "redshift_role"
-    assume_role_policy = jsonencode({
-        Version = "2012-10-17"
-        Statement = [
-        {
-            Action = "sts:AssumeRole"
-            Effect = "Allow"
-            Sid    = ""
-            Principal = {
-            Service = "redshift.amazonaws.com"
-            }
-        },
-        ]
-    })
-}
-
-resource "aws_iam_role_policy" "redshift_s3_full_access" {
-    name = "red_shift_s3_full_access_policy"
-    role = aws_iam_role.redshift_iam_role.id
-    policy = jsonencode({
-        Version   = "2012-10-17"
-        Statement = [{
-            Action   = "s3:*"
-            Effect   = "Allow"
-            Resource = "*"
-        }, ] 
-    })
-}
-
-
 # --------------------------- Create Redshift cluster --------------------------- #
 
 resource "aws_redshift_cluster" "sale_redshift_cluster" {
@@ -155,8 +103,6 @@ resource "aws_redshift_cluster" "sale_redshift_cluster" {
     node_type           = var.redshift_node_type
     cluster_type        = var.redshift_cluster_type
     number_of_nodes     = var.redshift_number_of_nodes
-
-    iam_roles = [aws_iam_role.redshift_iam_role.arn]  
 
     cluster_subnet_group_name = aws_redshift_subnet_group.redshift_subnet_group.id
     skip_final_snapshot = true
