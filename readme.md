@@ -187,6 +187,7 @@ make connections
 # Set up cloud infrastructure
 make infra-init # Only need in the first run 
 
+# Notes : Please configure your own AWS access & secret keys in terraform.tfvars and /airflow/dags/ETL_redshift/Load_s3_to_redshift.py in order to create redshift cluster and connect to it
 make infra-up # Build cloud infrastructure
 ```
 
