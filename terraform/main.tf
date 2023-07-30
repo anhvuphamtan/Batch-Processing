@@ -152,6 +152,8 @@ resource "aws_redshift_cluster" "sale_redshift_cluster" {
     cluster_type        = var.redshift_cluster_type
     number_of_nodes     = var.redshift_number_of_nodes
 
+    iam_roles = [aws_iam_role.redshift_iam_role.arn]
+
     cluster_subnet_group_name = aws_redshift_subnet_group.redshift_subnet_group.id
     skip_final_snapshot = true
 
