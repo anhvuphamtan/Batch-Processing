@@ -8,8 +8,8 @@ def Establish_redshift_connection() :
         db_user = 'vupham',
         password = 'vudet11Q',
         cluster_identifier = 'vupham-redshift-cluster',
-        access_key_id = 'AKIA33I2NGIK7HI25JY3',
-        secret_access_key = '3PqLZcjT9aNEIdMkTlFQbKdQJAwTNTjqf/5y4o3u',
+        access_key_id = '********',  // You can use root access key or create redshift user to access to your redshift cluster
+        secret_access_key = '********',
         region = 'ap-southeast-1'
     );
 
