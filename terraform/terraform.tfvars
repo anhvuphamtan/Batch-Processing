@@ -1,6 +1,6 @@
 # AWS credentials variables
-aws_access_key = "AKIA33I2NGIKTGP4AQNC"
-aws_secret_key = "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"
+aws_access_key = "AKIA33I2NGIK7IS6LPN3"
+aws_secret_key = "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"
 aws_region = "ap-southeast-1"
 
 # Network variables
