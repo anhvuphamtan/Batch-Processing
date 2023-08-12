@@ -116,7 +116,7 @@ Batch-Processing/
 
 - Two <b> dc2.large </b> type nodes for Redshift cluster
 - Redshift cluster type : multi-node
-- Redshift cluster is put inside a VPC <i> (10.10.0.0/16) </i>, redshift subnet group consists of 2 subnets <i> "Subnet for redshift az 1"(10.10.0.0/24) </i> and <i> "Subnet for redshift az 2" (10.01.1.0/24) </i>, each subnet is put in an Availability zone.
+- Redshift cluster is put inside a VPC <i> (10.10.0.0/16) </i>, redshift subnet group consists of 2 subnets <i> "Subnet for redshift az 1"(10.10.0.0/24) </i> and <i> "Subnet for redshift az 2" (10.10.1.0/24) </i>, each subnet is put in an Availability zone.
 
 - These two subnets associate with a public route table (outbound traffic to the public internet through the Internet Gateway).
  
