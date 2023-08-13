@@ -24,7 +24,7 @@ with DAG (
     dag_id = 'ETL_psql_redshift_dag',
     default_args = default_args,
     description = 'ETLx to psql and redshift dag',
-    start_date = datetime(2023, 7, 29, 1),
+    start_date = datetime(2023, 8, 12, 1),
     schedule_interval = '@daily',
     template_searchpath = '/opt/airflow/postgreSQL_setup/'
                            
