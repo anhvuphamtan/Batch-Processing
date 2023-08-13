@@ -2,9 +2,10 @@ import boto3
 import os
 
 def Extract_from_source() : # Extract raw data from S3 bucket
+    # IAM user with S3 FullAccess
     session = boto3.Session( 
-        aws_access_key_id = "AKIA33I2NGIK2R5PCCOT",
-        aws_secret_access_key = "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"
+        aws_access_key_id = "****",
+        aws_secret_access_key = "****"
     );
     
     s3 = session.client("s3");
