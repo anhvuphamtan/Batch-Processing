@@ -8,6 +8,7 @@
 5. [Project structure](#4-project-structure)
 6. [Settings](#5-settings)
    - [Prerequisites](#prerequisites)
+   - [Important note : You must specify AWS credentials for each of the following](#important-note)
    - [AWS Infrastructure](#aws-infrastructure)
    - [Docker](#docker)
    - [Running](#running)
@@ -110,6 +111,14 @@ Batch-Processing/
 - Terraform
 - Docker 
 
+### Important note
+
+<b> You must specify AWS credentials for each of the following </b>
+
+- S3 access : Create an IAM user "S3-admin" with <b> S3FullAccess </b> policy, create access credentials and add them to [Extract.py](/airflow/dags/ETL_psql/Extract/Extract.py) and [ETL_psql_s3.py](/airflow/dags/ETL_redshift/ETL_psql_s3.py)
+- Redshift access : Create an IAM user "Redshift-admin" with <b> RedshiftFulAccess </b> policy, create accesss credentials and add them to [Load_s3_to_redshift.py](/airflow/dags/ETL_redshift/Load_s3_to_redshift.py).
+- Administrator access : Create an IAM user "Admin" with <b> AdministratorAccess </b> policy, create accesss credentials and add them to [terraform.tfvars](/terraform/terraform.tfvars) and [Makefile](/Makefile). This IAM user responsible for <b> <i> provisioning Redshift cluster, and add connection between airflow and Redshift cluster </b> </i>.
+
 ### AWS Infrastructure 
 
 <img src="/assets/Redshift%20diagram.png" alt="Redshift diagram" height="500">
@@ -168,11 +177,11 @@ boto3==1.26.148
 psycopg2-binary==2.9.6
 
 ```
-[docker-compose.yaml](/docker-compose.yaml) will build containers to run our application.
+[docker-compose](/docker-compose.yaml) will build containers to run our application.
 
 ### Running 
 
-Please refer to Makefile for more details
+Please refer to [Makefile](/Makefile) for more details
 ```
 # Clone and cd into the project directory
 git clone https://github.com/anhvuphamtan/Batch-Processing.git
