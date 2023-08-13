@@ -122,9 +122,10 @@ def Load_df_S3(s3, bucket_name, df, key) : # Load df to s3 bucket
 
 def Load_S3(df_dict) : # Load all df to s3 bucket
     # Create session to connect to s3 bucket
+    # IAM user with S3 FullAccess
     session = boto3.Session( 
-        aws_access_key_id = "AKIA33I2NGIK2R5PCCOT",
-        aws_secret_access_key = "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"
+        aws_access_key_id = "****", 
+        aws_secret_access_key = "****"
     );
 
     s3 = session.client("s3");
